@@ -1,0 +1,11 @@
+[Unit]
+Description="run getip periodically"
+
+[Timer]
+OnBootSec=300
+OnUnitActiveSec=1800
+#OnCalendar=Mon..Fri *-*-* 10:00:*
+Unit=getip.service
+
+[Install]
+WantedBy=timers.target
