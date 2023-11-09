@@ -25,4 +25,5 @@ Also remember to enter data from token creation into terraform.auto.tfvars file.
 In order to get your application key and secret please visit: https://www.ovh.com/auth/api/createToken <br>
 Create token as on the picture below (change {zone} for your domain name) and enter "/domain/zone/{zone}/record/*" <br>
 for all four methods (GET, PUT, POST, DELETE) and in order to refresh domain add POST for "/domain/zone/{zone}/refresh" <br>
+In any issues with authorization, create a token with "/domain/zone/{zone}/*"
 ![Token image](token.jpg "Token")
