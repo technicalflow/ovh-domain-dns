@@ -10,6 +10,18 @@ Please remember update get.sh file with data from creating a token<br>
 Also running on Mac please update line 55 as it will not save output to the ip.list file <br>
 Do so by installing gnu-sed and changing code to gsed <br>
 There are also getip.service and getip.timer file in order to run the script in schedule <br>
+Please remember to add the right path to getip script in getip.service file and next as root enter: <br>
+<code>
+mv getip.service /etc/systemd/system <br>
+mv getip.timer /etc/systemd/system <br>
+chown root:root /etc/systemd/system/getip.service <br>
+chown root:root /etc/systemd/system/getip.timer <br>
+chmod 755 /etc/systemd/system/getip.service <br>
+chmod 755 /etc/systemd/system/getip.timer <br>
+systemctl daemon-reload <br>
+systemctl enable getip.timer <br>
+</code>
+
 ## Python
 Again very simple script using OVH library (remember to run pip install ovh). <br>
 It also write the result to file and compare it before next run. <br>
@@ -24,6 +36,7 @@ Also remember to enter data from token creation into terraform.auto.tfvars file.
 ## Token
 In order to get your application key and secret please visit: https://www.ovh.com/auth/api/createToken <br>
 Create token as on the picture below (change {zone} for your domain name) and enter <br>
-"/domain/zone/{zone}/record/* " for all four methods (GET, PUT, POST, DELETE) and in order to refresh domain add POST for "/domain/zone/{zone}/refresh" <br>
-In any issues with authorization, create a token with "/domain/zone/{zone}/* "
+"/domain/zone/{zone}/record/* " for all four methods (GET, PUT, POST, DELETE) and in order to refresh domain add POST for "/domain/zone/{zone}/refresh" <br><br>
+In any issues with authorization, create a token with "/domain/zone/{zone}/* "<br>
+<i>Also sometimes it takes a day before OVH API works correctly with generated keys</i> <br><br>
 ![Token image](token.jpg "Token")
