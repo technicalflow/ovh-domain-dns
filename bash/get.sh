@@ -2,13 +2,18 @@
 
 set -e
 
-if [ "$(curl -s -o /dev/null -I -w "%{http_code}" icanhazip.com)" != "200" ] ; then exit 1; fi
-
 OVH_CONSUMER_KEY="..."
 OVH_APP_KEY="..."
 OVH_APP_SECRET="..."
 
 DOMAIN="example.com"
+
+# Check if internet connection is available
+if [ "$(curl -s -o /dev/null -I -w "%{http_code}" icanhazip.com)" != "200" ] ; then exit 1; fi
+
+# Check if the current IP is the same as the one in the DNS
+if [ "$(curl -s icanhazip.com)" == $(host $DOMAIN | awk '{print $4}') ]; then exit 1; fi
+
 
 function1 ()
 {
@@ -58,4 +63,5 @@ function1 ()
     #sed -i "/IPs/a$(echo $IP)\ " ip.list
 }
 
+# Check if the current IP is the same as the one last noted in the local ip.list
 if [ "$(curl -s icanhazip.com)" != $(sed -n '2p' ip.list) ]; then function1 >/dev/null 2>&1 ; fi
