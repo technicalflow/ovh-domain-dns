@@ -12,7 +12,7 @@ DOMAIN="example.com"
 if [ "$(curl -s -o /dev/null -I -w "%{http_code}" icanhazip.com)" != "200" ] ; then exit 1; fi
 
 # Check if the current IP is the same as the one in the DNS
-if [ "$(curl -s icanhazip.com)" == $(host $DOMAIN | awk '{print $4}') ]; then exit 0; fi
+if [ "$(curl -s icanhazip.com)" == $(host -4 -t A $DOMAIN | awk '{print $4}') ]; then exit 0; fi
 
 
 function1 ()
